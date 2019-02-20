@@ -4,9 +4,48 @@
   <meta charset="utf-8">
   <title>GameOfLife</title>
   <base href="/">
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+<script>
+
+
+function createTwoDimensionalArray(columns, rows) {
+    let arr = new Array(columns);
+    for (let i = 0; i < arr.length; i++) {
+      arr[i] = new Array(rows);
+    }
+    return arr;
+  }
+
+let grid;
+let columns = 10;
+let rows = 10;
+
+function setup() {
+  //canvas API
+//  createCanvas(640,480);
+grid = createTwoDimensionalArray(10,10);
+
+for(let i = 0; i < columns; i++) {
+  for(let i = 0; i < columns; i++) {
+      for(let j = 0; j < rows; j++) {
+        grid[i][j] = floor(random(2));
+      }
+   }
+  }
+}
+
+// function draw() {
+
+// if (mouseIsPressed) {
+//   fill(0)
+// } else {
+//   fill(255)
+// }
+//   ellipse(mouseX, mouseY, 80, 80);
+// }
+</script>
 </head>
 <body>
   <app-root></app-root>
