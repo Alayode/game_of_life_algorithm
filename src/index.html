@@ -47,20 +47,56 @@
     function draw() {
       background(0);
 
-        for (let i = 0; i < columns; i++) {
-          for (let j = 0; j < rows; j++) {
-            let x = i * resolution;
-            let y = j * resolution;
-            // when the grid position is equal to 1...
-            if (grid[i][j] == 1) {
-              fill(255);
-              stroke(0);
-              rect(x, y, resolution - 1, resolution - 1);
-            }
-
+      for (let i = 0; i < columns; i++) {
+        for (let j = 0; j < rows; j++) {
+          let x = i * resolution;
+          let y = j * resolution;
+          // when the grid position is equal to 1...
+          if (grid[i][j] == 1) {
+            fill(255);
+            stroke(0);
+            rect(x, y, resolution - 1, resolution - 1);
           }
+
+
+
         }
       }
+
+      let next = createTwoDimensionalArray(columns, rows);
+      for (let i = 0; i < columns; i++) {
+        for (let j = 0; j < columns; j++) {
+
+          let sum = 0;
+          let neighbors = countNeighbors(grid, i, j)
+
+
+          // sum += grid[i - 1][j - 1];
+          // sum += grid[i][j - 1];
+          // sum += grid[i + 1][j - 1];
+          // sum += grid[i + 1][j];
+
+          // sum += grid[i + 1][j + 1];
+          // sum += grid[i][j + 1];
+          // sum += grid[i - 1][j + 1];
+          // sum += grid[i - 1][j];
+
+        }
+      }
+    }
+
+    function countNeighbors(grid, x, y) {
+
+      let sum = 0;
+      for (let i = 0; i < columns; i++) {
+        for (let j = 0; j < columns; j++) {
+          sum += grid[i][j]
+
+        }
+      }
+      sum-= grid[x][y];
+
+    }
 
   </script>
 </head>
