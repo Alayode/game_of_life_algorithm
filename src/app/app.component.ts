@@ -1,58 +1,97 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 // import { ConsoleReporter } from 'jasmine';
 
+
+/**
+ *
+ *
+ * @export
+ * @class AppComponent
+ * @implements {OnInit}
+ *
+ *
+ *
+ * This Component generates the given number of columns and rows and
+ * then next   draws the squares to the screen to create a grid
+ * which then fills the color to red.
+ *
+ * Next step is to add another color based on the value stored in its positiion.
+ */
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = "game-of-life";
+  title = 'game-of-life';
 
-  columns: number = 10;
-  rows: number = 10;
-  resolution: number = 10;
+  columns = 10;
+  rows = 10;
+  resolution= 10;
+
+
 
   ngOnInit() {
     const columns = this.columns;
     const rows = this.rows;
     const criticalStrike = Math.random();
     const criticalSave = Math.random();
-  const grid =  this.createTwoDimensionalArray();
 
+    const grid = this.createTwoDimensionalArray();
+    this.generateGrid(grid, columns, rows);
+    // console.table(grid);
+    this.drawGridToCanvas(grid);
+  }
+
+  generateRandomInteger(limit) {
+    const maximumInteger = Math.floor(Math.random() * Math.floor(limit));
+    return maximumInteger;
+  }
+
+  generateGrid(myGrid, columns, rows) {
+
+    const grid = myGrid;
     for (let i = 0; i < columns; i++) {
       for (let j = 0; j < rows; j++) {
         grid[i][j] = this.generateRandomInteger(2);
       }
     }
-
-    console.table(grid);
-
   }
 
-  generateRandomInteger(limit) {
-    const maximumInteger = Math.floor(Math.random() * Math.floor(limit));;
-      return maximumInteger;
-    }
-
   createTwoDimensionalArray() {
-    let arr = new Array(10);
-    for (let i = 0; i < arr.length; i++) {
+    const myTwoDimensionalArray = new Array(10);
+    for (let i = 0; i < myTwoDimensionalArray.length; i++) {
       // a.push(i); [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-     arr[i] = new Array(10);
+      myTwoDimensionalArray[i] = new Array(10);
     }
-return arr;
-      }
+    return myTwoDimensionalArray;
+  }
 
+  drawGridToCanvas(gridRef) {
+    const grid = gridRef;
 
-  draw() {
-    const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+    const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     if (canvas.getContext) {
-      const context = canvas.getContext("2d");
+      const context = canvas.getContext('2d');
+      const resolution = 10;
 
-      context.fillRect(25, 25, 100, 100);
-      context.clearRect(45, 45, 60, 60);
-      context.strokeRect(50, 50, 50, 50);
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+
+      const pointX = i * resolution;
+      const pointY = j * resolution;
+        const topRight = pointX * resolution;
+        const topLeft =  pointY * resolution;
+        const resolutionHeight = resolution - 1;
+        const resolutionWidth = resolution - 1;
+           if (grid[i][j] === 1) {
+        context.fillStyle = 'red';
+        context.fillRect(pointX, pointY, resolutionWidth, resolutionHeight);}
+
+
+        }
+      }
     }
   }
 }
+
