@@ -23,11 +23,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'game-of-life';
+  title = `The Game Of Life`;
 
   columns = 10;
   rows = 10;
-  resolution= 10;
+  resolution = 10;
 
 
 
@@ -78,16 +78,29 @@ export class AppComponent implements OnInit {
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
 
-      const pointX = i * resolution;
-      const pointY = j * resolution;
-        const topRight = pointX * resolution;
-        const topLeft =  pointY * resolution;
-        const resolutionHeight = resolution - 1;
-        const resolutionWidth = resolution - 1;
-           if (grid[i][j] === 1) {
-        context.fillStyle = 'red';
-        context.fillRect(pointX, pointY, resolutionWidth, resolutionHeight);}
-
+          const pointX = i * resolution;
+          const pointY = j * resolution;
+          const topRight = pointX * resolution;
+          const topLeft = pointY * resolution;
+          const resolutionHeight = resolution - 1;
+          const resolutionWidth = resolution - 1;
+          if (grid[i][j] === 1) {
+            context.fillStyle = 'red';
+            context.fillRect(
+                              pointX,
+                              pointY,
+                              resolutionWidth,
+                              resolutionHeight
+                            );
+          } else if (grid[i][j] === 0) {
+            context.fillStyle = 'blue';
+            context.fillRect(
+                              pointX,
+                              pointY,
+                              resolutionWidth,
+                              resolutionHeight
+                            );
+          }
 
         }
       }
